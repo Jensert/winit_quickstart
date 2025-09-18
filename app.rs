@@ -21,19 +21,6 @@ impl App {
     pub fn window(&self) -> &Window {
         self.window.as_ref().unwrap()
     }
-
-    pub fn update(&mut self) {
-        let _window = self.window.as_ref().unwrap();
-    }
-
-    pub fn render(&mut self) {
-        let _window = self.window.as_ref().unwrap();
-    }
-
-    pub fn resize(&mut self, size: PhysicalSize<u32>) {
-        let _window = self.window.as_ref().unwrap();
-        self.size = size;
-    }
 }
 
 impl ApplicationHandler for App {
@@ -57,27 +44,21 @@ impl ApplicationHandler for App {
             match event {
                 WindowEvent::Resized(size) => {
                     println!("Resizing window");
-                    self.resize(size);
+                    self.size = size;
                 }
 
                 WindowEvent::RedrawRequested => {
                     self.window().request_redraw();
-
-                    self.update();
-
-                    self.render();
                 }
 
                 WindowEvent::KeyboardInput { event, .. } => {
                     if let PhysicalKey::Code(KeyCode::Escape) = event.physical_key {
-                        println!("Escape pressed!");
                         event_loop.exit();
                     }
                 }
 
                 WindowEvent::CloseRequested => {
                     println!("Closing window");
-                    event_loop.exit();
                 }
                 _ => (),
             }
